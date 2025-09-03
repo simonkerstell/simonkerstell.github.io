@@ -1,1 +1,302 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simon Kerstell – Portfolio (Growth Marketing)</title>
+  <meta name="description" content="Portfolio av Simon Kerstell – growth marketer med fokus på datadriven experimentering, konverteringsoptimering och hållbar tillväxt." />
+  <meta name="theme-color" content="#0f172a" />
+  <style>
+    /* ===== Design tokens ===== */
+    :root{
+      --bg:#0b1020;--text:#e9eef6;--muted:#a7b3c9;
+      --brand:#64d2ff;--brand-2:#8effa2;
+      --panel:#0f172a;--ring:#64d2ff66;
+      --maxw:1200px;--r:18px;--shadow:0 10px 30px rgba(0,0,0,.25);
+      --gap:clamp(14px, 2.5vw, 28px)
+    }
+    @media (prefers-color-scheme: light){
+      :root{--bg:#f6f8ff;--text:#0b1020;--muted:#4a5872;--panel:#ffffff}
+    }
+    *{box-sizing:border-box}
+    html:focus-within{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(1200px 600px at 50% -200px, #16223f 0%, var(--bg) 45%), var(--bg); color:var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; line-height:1.55}
+    img{max-width:100%;display:block}
+    a{color:var(--brand); text-underline-offset:3px}
+    .container{max-width:var(--maxw); margin-inline:auto; padding:0 20px}
+    .pill{display:inline-flex; gap:.5rem; align-items:center; padding:.5rem .9rem; border:1px solid #ffffff1a; border-radius:999px; background:#ffffff0f; color:var(--muted); font-size:.9rem; backdrop-filter: blur(8px)}
+    .shadow{box-shadow:var(--shadow)}
+    .btn{display:inline-flex; gap:.5rem; align-items:center; padding:.8rem 1.1rem; border-radius:12px; border:1px solid #ffffff20; background:linear-gradient(180deg,#ffffff10,#00000010); color:var(--text); text-decoration:none}
+    .btn:focus-visible, .linklike:focus-visible{outline:3px solid var(--ring); outline-offset:2px}
 
+    /* ===== Header ===== */
+    header{position:sticky; top:0; z-index:10; backdrop-filter:saturate(120%) blur(6px); background:#0b1020cc}
+    @media (prefers-color-scheme: light){ header{background:#ffffffcc} }
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.2px}
+    .brand .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(45deg, var(--brand), var(--brand-2))}
+    .nav a{color:var(--muted); text-decoration:none; margin-left:20px; font-size:.95rem}
+    .nav a:hover{color:var(--text)}
+
+    /* ===== Hero ===== */
+    .hero{position:relative; margin:26px auto 12px; border-radius:var(--r); overflow:hidden; background:#111}
+    .hero .media{aspect-ratio: 16/7; width:100%; object-fit: cover; filter:saturate(1.05) contrast(1.05) brightness(.9)}
+    .hero .overlay{position:absolute; inset:0; background:linear-gradient(180deg, #00000066 0%, #00000055 60%, #000000aa 100%)}
+    .hero .content{position:absolute; inset:0; display:grid; place-items:center; text-align:center; padding:24px}
+    .hero h1{font-size: clamp(26px, 4.5vw, 52px); margin:0 0 12px}
+    .hero p{max-width:750px; margin: 8px auto 18px; color:#d3dcec}
+
+    /* ===== Intro / definition ===== */
+    .intro{display:grid; gap:var(--gap); grid-template-columns: 1.2fr .8fr; align-items:start; margin-top:26px}
+    .card{background:var(--panel); padding: clamp(16px,2.2vw,24px); border-radius:var(--r); border:1px solid #ffffff14}
+    .muted{color:var(--muted)}
+    .kpis{display:grid; gap:var(--gap); grid-template-columns: repeat(4, 1fr)}
+    .kpi{padding:18px; border-radius:14px; border:1px dashed #ffffff2e; background:linear-gradient(180deg,#ffffff06,#00000008)}
+    .kpi b{display:block; font-size: clamp(18px, 2.8vw, 28px)}
+    .kpi small{color:var(--muted)}
+
+    /* ===== Projects grid ===== */
+    .grid{display:grid; gap:var(--gap); grid-template-columns:repeat(12,1fr); margin: 8px 0 50px}
+    .project{grid-column: span 6; display:flex; flex-direction:column; background:var(--panel); border-radius:var(--r); overflow:hidden; border:1px solid #ffffff14}
+    .project.feature{grid-column: span 12}
+    .project .thumb{aspect-ratio: 16/9; object-fit:cover}
+    .project .body{padding:18px 18px 16px}
+    .tags{display:flex; gap:8px; flex-wrap:wrap; margin:6px 0 12px}
+    .tag{font-size:.8rem; padding:.2rem .5rem; border-radius:999px; border:1px solid #ffffff20; color:var(--muted); background:#ffffff0a}
+    .statline{display:flex; gap:14px; flex-wrap:wrap; margin-top:10px; color:var(--muted)}
+    .statline span{display:inline-flex; gap:6px; align-items:center; padding:.35rem .55rem; border:1px solid #ffffff1a; border-radius:8px; background:#ffffff08; font-size:.9rem}
+    .project h3{margin:6px 0 6px}
+    .project p{margin:0; color:var(--muted)}
+    .project .body a{margin-top:12px}
+
+    /* ===== Footer ===== */
+    footer{padding:40px 0 60px; color:var(--muted)}
+    .footgrid{display:grid; gap:var(--gap); grid-template-columns: 1fr 1fr}
+    .footgrid .mini{font-size:.95rem}
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px){
+      .intro{grid-template-columns:1fr}
+      .kpis{grid-template-columns: repeat(2,1fr)}
+      .project{grid-column: span 12}
+      .nav a{margin-left:14px}
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Huvudnavigation">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Simon Kerstell</span>
+      </div>
+      <nav>
+        <a href="#intro" class="linklike">Om</a>
+        <a href="#case" class="linklike">Projekt</a>
+        <a href="#kontakt" class="linklike">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="container hero shadow" aria-label="Hero">
+    <img class="media" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1600&auto=format&fit=crop" alt="Abstrakt landskap av data och tillväxt"/>
+    <div class="overlay" aria-hidden="true"></div>
+    <div class="content">
+      <div class="pill">Simon Kerstell • Growth Marketing</div>
+      <h1>Portfolio</h1>
+      <p>Datadrivna experiment, skarpa hypoteser och kreativ exekvering som driver mätbar tillväxt – snabbt och hållbart.</p>
+      <a href="#case" class="btn">Se projekt</a>
+    </div>
+  </section>
+
+  <!-- ===== Intro / definition ===== -->
+  <section id="intro" class="container" style="margin-top:22px">
+    <div class="intro">
+      <article class="card">
+        <h2 style="margin-top:0">Vad gör en growth marketer?</h2>
+        <p class="muted">
+          En growth marketer blandar <em>analys</em>, <em>experiment</em> och <em>berättande</em> för att skala en produkt eller tjänst. Det handlar om att
+          sätta hypoteser, prioritera i en test-backlog, rulla A/B-tester, optimera flöden (AARRR), och bygga varumärke som sänker CAC och höjer LTV.
+        </p>
+        <p class="muted">
+          Läs mer hos Berghs:
+          <a target="_blank" rel="noopener" href="https://www.berghs.se/artiklar/vad-gor-en-growth-marketer/">Vad gör en Growth Marketer?</a>
+        </p>
+      </article>
+
+      <aside class="card">
+        <div class="kpis">
+          <div class="kpi">
+            <small>Genomsnittlig lyft i CR</small>
+            <b>+38%</b>
+            <small>över 90 dagar (fiktiv data)</small>
+          </div>
+          <div class="kpi">
+            <small>Snitt CAC</small>
+            <b>−27%</b>
+            <small>via mix av SEO/CRM/paid</small>
+          </div>
+          <div class="kpi">
+            <small>LTV/CAC</small>
+            <b>3.9x</b>
+            <small>efter retention-insatser</small>
+          </div>
+          <div class="kpi">
+            <small>Experiment/kvartal</small>
+            <b>45</b>
+            <small>med 1:5 win-rate</small>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===== Projects ===== -->
+  <section id="case" class="container">
+    <div style="display:flex; align-items:end; justify-content:space-between; margin: 34px 0 12px">
+      <h2 style="margin:0">Projekt & tillväxtcase</h2>
+      <span class="pill">Exempel/fake cases för att visa struktur och siffror</span>
+    </div>
+
+    <div class="grid">
+      <!-- Feature case -->
+      <article class="project feature shadow">
+        <img class="thumb" src="https://images.unsplash.com/photo-1520975661595-6453be3f7070?q=80&w=1600&auto=format&fit=crop" alt="Mobilskärm och dashboard"/>
+        <div class="body">
+          <div class="tags">
+            <span class="tag">Onboarding</span>
+            <span class="tag">A/B-test</span>
+            <span class="tag">Produkt-led</span>
+            <span class="tag">CRM</span>
+          </div>
+          <h3>Fintech-appen “Nimbus” – aktivering & retention</h3>
+          <p>
+            Kartlade friktion i onboarding (JTBD-intervjuer + funnelanalys). Hypotes-drivet experimentprogram (ICE) på 10 veckor.
+            Implementerade progress indicators, “nudges” via e-post/push och personaliserad tom-till-värde (TTV).
+          </p>
+          <div class="statline">
+            <span>Activation (D7) <strong>+24%</strong></span>
+            <span>Churn (M2) <strong>−19%</strong></span>
+            <span>ARPU <strong>+12%</strong></span>
+            <span>Paywall CR <strong>+31%</strong></span>
+          </div>
+          <a class="btn" href="#" aria-disabled="true">Case coming soon</a>
+        </div>
+      </article>
+
+      <!-- Case 2 -->
+      <article class="project shadow">
+        <img class="thumb" src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1200&auto=format&fit=crop" alt="E-handel paket och lager"/>
+        <div class="body">
+          <div class="tags">
+            <span class="tag">E-handel</span><span class="tag">SEO</span><span class="tag">CRO</span><span class="tag">Paid</span>
+          </div>
+          <h3>D2C “Nordic Gear” – full-funnel skalning</h3>
+          <p>Byggde growth-loop mellan UGC-annonser, landningssidor och e-postflöden. Tekniska SEO-fixar + schema & internlänkar.</p>
+          <div class="statline">
+            <span>Revenue QoQ <strong>+58%</strong></span>
+            <span>CAC <strong>−33%</strong></span>
+            <span>Checkout CR <strong>+22%</strong></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Case 3 -->
+      <article class="project shadow">
+        <img class="thumb" src="https://images.unsplash.com/photo-1492138786289-d35ea832da43?q=80&w=1200&auto=format&fit=crop" alt="SaaS-dashboard och grafer"/>
+        <div class="body">
+          <div class="tags">
+            <span class="tag">SaaS</span><span class="tag">Pricing</span><span class="tag">PLG</span><span class="tag">Analytics</span>
+          </div>
+          <h3>SaaS “Flowbit” – prissättning & paywall-optimering</h3>
+          <p>Segmenterad value-metric & ny paketering (Good/Better/Best). Testade freemium-begränsningar och ångestfria uppgraderingar.</p>
+          <div class="statline">
+            <span>Trials → Paid <strong>+29%</strong></span>
+            <span>LTV <strong>+17%</strong></span>
+            <span>Support tickets <strong>−12%</strong></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Case 4 -->
+      <article class="project shadow">
+        <img class="thumb" src="https://images.unsplash.com/photo-1529336953121-ad8133c852d7?q=80&w=1200&auto=format&fit=crop" alt="Evenemang och community-scen"/>
+        <div class="body">
+          <div class="tags">
+            <span class="tag">Community</span><span class="tag">Referral</span><span class="tag">Event</span>
+          </div>
+          <h3>Marketplace “Localio” – referral-loop</h3>
+          <p>Lanserade “ge 100 kr, få 100 kr” + offline-QR vid event. Implementerade K-faktor-spårning och anti-fraud.</p>
+          <div class="statline">
+            <span>Referrals/ny kund <strong>+2.1×</strong></span>
+            <span>CPA <strong>−23%</strong></span>
+            <span>Repeat rate (M3) <strong>+18%</strong></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Case 5 -->
+      <article class="project shadow">
+        <img class="thumb" src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop" alt="B2B möte och whiteboard"/>
+        <div class="body">
+          <div class="tags">
+            <span class="tag">B2B</span><span class="tag">ABM</span><span class="tag">Inbound</span>
+          </div>
+          <h3>B2B “Insightly Labs” – pipeline acceleration</h3>
+          <p>Byggde content-hub + intent-signaler. Nurture-flöden kopplade till sälj via Salesforce.</p>
+          <div class="statline">
+            <span>MQL → SQL <strong>+41%</strong></span>
+            <span>Sales cycle <strong>−19%</strong></span>
+            <span>Win rate <strong>+11%</strong></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Case 6 -->
+      <article class="project shadow">
+        <img class="thumb" src="https://images.unsplash.com/photo-1485217988980-11786ced9454?q=80&w=1200&auto=format&fit=crop" alt="Mobilapp i mörkt läge"/>
+        <div class="body">
+          <div class="tags">
+            <span class="tag">ASO</span><span class="tag">Paid Social</span><span class="tag">Creative</span>
+          </div>
+        <h3>App “Habitly” – kreativ skalning</h3>
+          <p>Itererade 30+ kreativa koncept/vecka (motion, UGC, hooks). ASO-optimering och lokalisering.</p>
+          <div class="statline">
+            <span>IPM (installs/1k) <strong>+47%</strong></span>
+            <span>ROAS D7 <strong>+25%</strong></span>
+            <span>Rating <strong>4.6★</strong></span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Footer / Contact ===== -->
+  <footer id="kontakt" class="container">
+    <div class="footgrid card">
+      <div>
+        <h3 style="margin-top:0">Ska vi skapa tillväxt tillsammans?</h3>
+        <p class="mini">Jag gillar tydliga mål (North Star & OMTM), snabb experimenttakt och att låsa upp hinder mellan marknad, produkt och data.</p>
+        <div class="statline" style="margin:12px 0 0">
+          <span>Stockholm</span>
+          <span>Hybrid/Remote</span>
+          <span>Föredrar OKR</span>
+        </div>
+      </div>
+      <div>
+        <p class="mini">Ring eller mejla gärna:</p>
+        <p class="mini">📧 <a href="mailto:simon.kerstell@example.com">simon.kerstell@example.com</a><br/>🔗 <a href="https://www.berghs.se/artiklar/vad-gor-en-growth-marketer/" target="_blank" rel="noopener">Berghs om rollen</a></p>
+        <a class="btn" href="mailto:simon.kerstell@example.com">Starta kontakt</a>
+      </div>
+    </div>
+    <p class="mini" style="text-align:center; margin-top:18px">© <span id="y"></span> Simon Kerstell • Portfolio</p>
+  </footer>
+
+  <script>
+    // Sätter året i footern
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
