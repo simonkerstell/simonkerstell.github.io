@@ -7,6 +7,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-NPX38RVV');</script>
 <!-- End Google Tag Manager -->
+ <!-- Data Layer setup -->
+<script>
+  // Initiera dataLayer om den inte redan finns
+  window.dataLayer = window.dataLayer || [];
+
+  // Funktion som GTM använder
+  function gtag(){ dataLayer.push(arguments); }
+
+  // Exempel: skicka en sidvisning när sidan laddas
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX'); // <-- ersätt med ditt GA4-ID
+
+  // Exempel: custom event för test
+  dataLayer.push({
+    event: 'custom_event',
+    category: 'test',
+    action: 'page_load',
+    label: 'start'
+  });
+</script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Simon Kerstell — Growth Specialist</title>
