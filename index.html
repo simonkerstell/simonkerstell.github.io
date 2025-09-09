@@ -1,12 +1,402 @@
 <!doctype html>
 <html lang="sv">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Simon Kerstell – Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simon Kerstell — Growth Specialist</title>
+  <meta name="description" content="Growth specialist som levererar mätbar tillväxt. Inte din grafiska designer — din tillväxtmaskin." />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Font: Inter (neutral, professionell) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0a0a0a;         /* Kolsvart */
+      --surface:#111;       /* Sekundär yta */
+      --text:#eaeaea;       /* Primär text */
+      --muted:#9b9b9b;      /* Dämpad text */
+      --line:#1f1f1f;       /* Linjer */
+      --ok:#d0ffd6;         /* Subtil grönt för KPI (+) */
+      --bad:#ffd0d0;        /* Subtil rött om du vill visa - (använd sparsamt) */
+      --focus:#fff;         /* Fokusoutline */
+      --shadow: 0 10px 30px rgba(0,0,0,.55);
+      --radius: 18px;
+      --maxw: 1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+    /* ====== Header ====== */
+    header{
+      position:sticky;top:0;z-index:20;
+      backdrop-filter:saturate(1.1) blur(8px);
+      background:linear-gradient(to bottom, rgba(10,10,10,.85), rgba(10,10,10,.35) 90%, transparent);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;
+      height:70px;
+    }
+    .brand{font-weight:900;letter-spacing:.4px}
+    .badge{
+      font-size:.75rem;padding:8px 12px;border:1px solid var(--line);
+      border-radius:999px;color:var(--muted)
+    }
+    .cta{
+      display:inline-flex;align-items:center;gap:.6rem;
+      background:#fff;color:#000;font-weight:700;
+      padding:12px 18px;border-radius:999px;border:1px solid #fff;
+      transition:transform .08s ease, box-shadow .2s ease;
+    }
+    .cta:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(255,255,255,.08)}
+    .ghost{
+      display:inline-flex;align-items:center;gap:.6rem;
+      border:1px solid var(--line);color:var(--text);
+      padding:12px 18px;border-radius:999px;background:transparent;
+    }
+
+    /* ====== Hero ====== */
+    .hero{
+      position:relative;isolation:isolate;
+      padding:90px 0 40px;border-bottom:1px solid var(--line);
+    }
+    .hero::before{
+      /* Kaxig, svartvit textur som inte ser “designig” ut */
+      content:"";position:absolute;inset:0;z-index:-1;
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(255,255,255,.08), transparent 60%),
+        radial-gradient(800px 400px at -10% 20%, rgba(255,255,255,.06), transparent 55%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, transparent 1px 2px);
+      opacity:.9;
+    }
+    .kicker{color:var(--muted);text-transform:uppercase;letter-spacing:.2em;font-size:.8rem}
+    .h1{
+      font-size:clamp(2.2rem, 4.5vw, 4rem);line-height:1.05;margin:.4rem 0 1rem;font-weight:900;
+    }
+    .h1 .strike{
+      position:relative;display:inline-block
+    }
+    .h1 .strike::after{
+      content:"";position:absolute;left:-4px;right:-4px;bottom:.3em;height:10px;background:linear-gradient(90deg,#fff,rgba(255,255,255,.3));opacity:.12;transform:skewY(-6deg);
+    }
+    .sub{color:#cfcfcf;max-width:48ch;font-size:1.05rem}
+    .hero-actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.4rem}
+
+    /* Proof bar */
+    .proof{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:28px;max-width:680px
+    }
+    .proof .pitem{
+      border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--muted);font-size:.9rem
+    }
+
+    /* ====== KPI row ====== */
+    .kpi{
+      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:32px 0 10px
+    }
+    .kcard{
+      padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,#0a0a0a, #0d0d0d);
+      box-shadow:var(--shadow);
+    }
+    .knum{font-size:2rem;font-weight:900;letter-spacing:.6px}
+    .klabel{color:var(--muted);font-size:.9rem}
+    .kpos{color:var(--ok)}
+
+    /* ====== Sections ====== */
+    section{padding:70px 0;border-bottom:1px solid var(--line)}
+    .section-h{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:26px}
+    .section-h h2{margin:0;font-size:1.6rem}
+    .section-h p{margin:0;color:var(--muted)}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .card{
+      border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,#0b0b0b, #0e0e0e);
+      padding:22px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow)
+    }
+    .meta{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:.85rem}
+    .pill{border:1px solid var(--line);padding:6px 10px;border-radius:999px}
+    .stat{font-weight:700}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:.95rem}
+
+    /* ====== Footer / Contact ====== */
+    footer{padding:60px 0}
+    .contact{
+      display:grid;grid-template-columns:1.2fr .8fr;gap:18px
+    }
+    form{
+      display:grid;gap:12px;border:1px solid var(--line);border-radius:var(--radius);padding:16px;background:#0b0b0b
+    }
+    input,textarea{
+      width:100%;padding:14px 14px;border-radius:12px;border:1px solid #202020;background:#0f0f0f;color:var(--text);
+    }
+    input:focus,textarea:focus{outline:2px solid var(--focus);outline-offset:2px}
+    .small{font-size:.85rem;color:var(--muted)}
+    .muted{color:var(--muted)}
+
+    /* ====== Responsive ====== */
+    @media (max-width:980px){
+      .kpi{grid-template-columns:repeat(2,1fr)}
+      .grid-3{grid-template-columns:1fr}
+      .contact{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
-  <h1>Hej! Jag heter Simon Kerstell</h1>
-  <p>Välkommen till min portfolio.</p>
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="wrap nav">
+      <div class="brand">SIMON KERSTELL</div>
+      <nav style="display:flex;gap:.6rem;align-items:center">
+        <span class="badge">Growth Specialist</span>
+        <a class="ghost" href="#case">Case</a>
+        <a class="ghost" href="#metod">Metod</a>
+        <a class="cta" href="#kontakt" aria-label="Kontakt">Boka ett samtal →</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker">Inte snyggast. Snabbast till resultat.</div>
+      <h1 class="h1">Jag bygger <span class="strike">tillväxt</span> — inte drömmar om den.</h1>
+      <p class="sub">
+        Growth specialist med fokus på mätbara effekter: mer trafik, fler konverteringar och högre LTV.
+        Inte din grafiska designer. Din tillväxtmaskin.
+      </p>
+      <div class="hero-actions">
+        <a class="cta" href="#case">Visa bevis →</a>
+        <a class="ghost" href="#metod">Se min metod</a>
+      </div>
+
+      <div class="proof" aria-label="Snabb bevisning">
+        <div class="pitem">• 90-dagars experimentcykler</div>
+        <div class="pitem">• Hypotes → Test → Lärdom → Skala</div>
+        <div class="pitem">• Full funnel: SEO, CRO, CRM, Paid</div>
+        <div class="pitem">• Spårning via GTM + GA4</div>
+      </div>
+
+      <!-- KPI Row -->
+      <div class="kpi" role="list" aria-label="KPI-resultat">
+        <div class="kcard" role="listitem">
+          <div class="knum kpos" data-target="142">0%</div>
+          <div class="klabel">Ökad organisk trafik (YoY)</div>
+        </div>
+        <div class="kcard" role="listitem">
+          <div class="knum kpos" data-target="38">0%</div>
+          <div class="klabel">Högre konverteringsgrad</div>
+        </div>
+        <div class="kcard" role="listitem">
+          <div class="knum kpos" data-target="27">0%</div>
+          <div class="klabel">Lägre CAC</div>
+        </div>
+        <div class="kcard" role="listitem">
+          <div class="knum kpos" data-target="3.4">0×</div>
+          <div class="klabel">Högre LTV/CAC</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Case ===== -->
+  <section id="case">
+    <div class="wrap">
+      <div class="section-h">
+        <h2>Case som levererar svart på vitt</h2>
+        <p>Riktiga siffror. Riktiga insikter. Riktig tillväxt.</p>
+      </div>
+
+      <div class="grid-3">
+        <!-- Case 1 -->
+        <article class="card">
+          <div class="meta">
+            <span class="pill">D2C</span>
+            <span class="pill">CRO</span>
+            <span class="pill">A/B-test</span>
+          </div>
+          <h3 style="margin:.2rem 0">Checkout-friktion → +31% CR</h3>
+          <p class="muted">Kartlade hinder i kassan, prioriterade hypoteser (PIE), testade 3 varianter. Vann på
+            tydligare värde & förkortad form.</p>
+          <div class="mono"><span class="stat">Resultat:</span> +31% CR, −18% avhopp, +22% intäkt/ses.</div>
+        </article>
+
+        <!-- Case 2 -->
+        <article class="card">
+          <div class="meta">
+            <span class="pill">B2B</span>
+            <span class="pill">SEO</span>
+            <span class="pill">Content ops</span>
+          </div>
+          <h3 style="margin:.2rem 0">Problem-sökningar → +142% organisk trafik</h3>
+          <p class="muted">Byggde kluster kring pains & “jobs to be done”. Tekniska fixar + intern länkstrategi.</p>
+          <div class="mono"><span class="stat">Resultat:</span> +142% sessions, +64% MQL, 11 topp-3-placeringar.</div>
+        </article>
+
+        <!-- Case 3 -->
+        <article class="card">
+          <div class="meta">
+            <span class="pill">SaaS</span>
+            <span class="pill">Lifecycle</span>
+            <span class="pill">CRM</span>
+          </div>
+          <h3 style="margin:.2rem 0">Aktiveringsgap → +23% Day-7 retention</h3>
+          <p class="muted">Segmenterade onboarding-flöden via beteende och skiftade “aha”-momentet tidigare.</p>
+          <div class="mono"><span class="stat">Resultat:</span> −27% churn, +3.4× LTV/CAC.</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Metod ===== -->
+  <section id="metod">
+    <div class="wrap">
+      <div class="section-h">
+        <h2>Min metod: brutalt enkel, konsekvent effektiv</h2>
+        <p>Inget fluff. Bara disciplin och data.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>01. Diagnos</h3>
+          <p class="muted">Spårning (GTM/GA4), funnel-kartläggning, nollmätning. Var läcker det? Var finns asymmetrin?</p>
+          <ul class="muted">
+            <li>Event & konverteringar på plats</li>
+            <li>Hastighet, UX, teknisk hälsa</li>
+            <li>Marknad/segment & JTBD</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>02. Hypotes → Test</h3>
+          <p class="muted">Prioriterar via ICE/PIE. A/B-testar i sprintar (2–3 v). Dokumenterar allt.</p>
+          <ul class="muted">
+            <li>Snabbt till 80/20</li>
+            <li>Små vinster staplas</li>
+            <li>Beslut på bevis, inte tycke</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>03. Skala</h3>
+          <p class="muted">Matar growth-loopen: acquisition → activation → revenue → referral → retention.</p>
+          <ul class="muted">
+            <li>Budget mot vinnare</li>
+            <li>Automation & CRM</li>
+            <li>Kontinuerlig lärlogg</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Stack / Tjänster ===== -->
+  <section id="tjanster">
+    <div class="wrap">
+      <div class="section-h">
+        <h2>Vad jag faktiskt gör</h2>
+        <p>Leverans över disciplinerna, med en enda KPI i sikte: tillväxt.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>Full-funnel tillväxt</h3>
+          <p class="muted">SEO, paid, CRO, CRM, e-mail, landing pages. Jag fyller gapen mellan kanalerna.</p>
+          <p class="mono">Verktyg: GA4, GTM, GSC, Hotjar, VWO, Meta/TikTok/Google Ads, HubSpot/Klaviyo.</p>
+        </div>
+        <div class="card">
+          <h3>Experimentledning</h3>
+          <p class="muted">Backlog, prioritering, testdesign, analys, beslut. Transparens via delad lärlogg.</p>
+          <p class="mono">Cadence: veckostyrning, månadsrapport, kvartals-north star.</p>
+        </div>
+        <div class="card">
+          <h3>Datagrund & spårning</h3>
+          <p class="muted">Ren events-modell, server-side där det är vettigt, privacy-safe.</p>
+          <p class="mono">Utfall: säker attribution och tryggare beslut.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Kontakt ===== -->
+  <footer id="kontakt">
+    <div class="wrap">
+      <div class="section-h">
+        <h2>Redo att växa snabbare?</h2>
+        <p>Berätta vad som gör mest ont just nu så tar vi det därifrån.</p>
+      </div>
+
+      <div class="contact">
+        <form action="https://formspree.io/f/your-id" method="POST">
+          <input aria-label="Namn" name="name" type="text" placeholder="Ditt namn" required>
+          <input aria-label="E-post" name="email" type="email" placeholder="E-post" required>
+          <textarea aria-label="Meddelande" name="message" rows="6" placeholder="Vad behöver du växa? (mål, hinder, tidsram)"></textarea>
+          <button class="cta" type="submit">Skicka förfrågan →</button>
+          <div class="small">Eller mejla: <a href="mailto:simon@simonkerstell.se">simon@simonkerstell.se</a></div>
+        </form>
+
+        <div class="card">
+          <h3>Matchar vi?</h3>
+          <p class="muted">Jag är rätt när du vill:</p>
+          <ul class="muted">
+            <li>Skala det som redan fungerar</li>
+            <li>Snabbt hitta de största läckagen</li>
+            <li>Få en disciplinerat testande partner</li>
+          </ul>
+          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="ghost" href="#" target="_blank" rel="noopener">Ladda ner CV</a>
+            <a class="ghost" href="https://www.linkedin.com/in/simonkerstell" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="ghost" href="#case">Se case</a>
+          </div>
+          <p class="small" style="margin-top:14px">Tillgänglig för frilans / konsult / interim.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:40px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+        <span>© <span id="year"></span> Simon Kerstell</span>
+        <span class="small">Byggd utan fluff. Endast siffror.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Minimal JS (KPI-uppslag & årtal) ===== -->
+  <script>
+    // Animera KPI-värden (enkelt, utan dependencies)
+    const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+    document.querySelectorAll('.knum').forEach(el=>{
+      const target = parseFloat(el.dataset.target);
+      const suffix = el.textContent.includes('%') ? '%' : (el.textContent.includes('×') ? '×' : '');
+      const duration = 1400;
+      const start = performance.now();
+      function tick(now){
+        const p = Math.min((now - start) / duration, 1);
+        const v = easeOutCubic(p) * target;
+        el.textContent = suffix === '%' ? (v.toFixed(0) + '%') :
+                         suffix === '×' ? (v.toFixed(1) + '×') : v.toFixed(0);
+        if(p<1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+    // Årtal i footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- ===== Spårning (valfritt): lägg in ditt GTM-ID nedan =====
+  <script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+  var f=d.getElementsByTagName(s)[0], j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:'';
+  j.async=true; j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl; f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-XXXXXXX');
+  </script>
+  -->
 </body>
 </html>
